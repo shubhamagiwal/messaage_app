@@ -38,11 +38,12 @@ export class MessageService{
 			.catch((error:Response)=>Observable.throw(error);//this is observable
 
 	}
-	deleteMessage(message:Message){
-		const body=JSON.stringify(message);
+	deleteMessage(id:string){
 		const headers=new Headers({'Content-Type':'application/json'});
-		return this.http.post('http://localhost:8000/messageDelete',body,{headers:headers})
-			.map((response:Response)=>response.json())
+		return this.http.delete('http://localhost:8000/messageDelete/'+id,{headers:headers})
+			.map((response:Response)=>{
+				this.message.splice(this.message.findIndex(x=>x.id==id),1);
+				response.json()})
 			.catch((error:Response)=>Observable.throw(error));
 	}
 	OneditMessage(message:Message){
@@ -54,7 +55,9 @@ export class MessageService{
 		const body = JSON.stringify(message);
 		const headers=new Headers({'Content-Type':'application/json'});
 		return this.http.patch('http://localhost:8000/updateMessage/'+message.id,body,{headers:headers})
-			.map((response:Response)=>response.json())
+			.map((response:Response)=>{
+				console.log(response);
+				response.json()})
 			.catch((error:Response)=>Observable.throw(error));
 	}
 } 

@@ -18,10 +18,11 @@ export class MessageComponent{
 		this.messageService.messageChanged.subscribe((messages:Message[])=>this.messages=messages);
 	}
 	ondelete(id:string){
-		this.messageService.deleteMessage()
-			.subsribe({
-				data=>console.log(data);
-				error=>console.log(error);
+		this.messageService.deleteMessage(id)
+			.subscribe({
+				result=>{
+					console.log(result);
+				}
 			});
 	}
 	onEdit(message:Message)

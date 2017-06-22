@@ -16,12 +16,23 @@ export class MessageAddComponent{
 		);
 	}
 	onAddMessage(form:ngForm){
-		this.messageService.addMessage(new Message(form.value.content,""))
-			.subscribe(
-				data=>console.log(data),
-				error=>console.log(error)
-			);
-		form.resetForm();
+		if(this.message==null)
+		{
+			this.messageService.addMessage(new Message(form.value.content,""))
+				.subscribe(
+					data=>console.log(data),
+					error=>console.log(error)
+				);
+			form.resetForm();
+		}
+		else{
+			this.message.message=form.value.content;
+			this.messageService.OnUpdateMessage(this.message)
+				.subscribe({
+					data=>console.log(data);
+					error=>console.log(error);
+				});
+		}
 	}
 	onClear(form:ngForm)
 	{

@@ -11,8 +11,21 @@ export class MessageComponent{
 	constructor(private messageService:MessageService){}
 	ngOnInit(){
 		this.messages=this.messageService.getMessage()
-			.subscribe((messages:Message[])=>this.messages=message);
+			.subscribe((messages:Message[])=>{
+				this.messages=messages;
+			});
 		//need to subsrcribe to eventEmiiter here later
 		this.messageService.messageChanged.subscribe((messages:Message[])=>this.messages=messages);
+	}
+	ondelete(id:string){
+		this.messageService.deleteMessage()
+			.subsribe({
+				data=>console.log(data);
+				error=>console.log(error);
+			});
+	}
+	onEdit(message:Message)
+	{
+		this.messageService.OneditMessage(message);
 	}
 }

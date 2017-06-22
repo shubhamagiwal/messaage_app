@@ -1,7 +1,11 @@
 var express = require('express');
 var router = express.Router();
 var Message = require('../models/message');
-router
+
+router.post('/messageDelete',function(req,res,next){
+
+});
+
 router.post('/message',function(req,res,next){
 	var message = new Message({
         message:req.body.message
@@ -21,18 +25,51 @@ router.post('/message',function(req,res,next){
 });
 
 router.get('/message',function(req,res,next){
-	Message.find().exec(function(err,res){
+	Message.find().exec(function(err,result){
 		if(err){
 			return res.status(500).json({
 				title:'error',
 				error:err
 			});
-			res.status(200).json({
-				message:"saved message",
-				obj:res
+		}
+		console.log(result);
+		res.status(200).json({
+			message:"saved message",
+			obj:result
+		});
+	});
+});
+
+router.patch('/updateMessage/:id',function(req,res,next){
+	Message.findById(req.params.id,function(err,message){
+		if(err)
+		{
+			return res.status(500).json({
+				title:'error',
+				error:err
 			});
 		}
-	});
+		if(!message){
+			return res.status(500).json({
+				title:'no message found',
+				error:{message:'No message found'}
+			});
+		}
+		message.message=req.body.message;
+		message.save(function(err,result){
+				if(err)
+				{
+					return res.status(500).json({
+					title:'error',
+					error:err
+				});
+				}
+					res.status(200).json({
+						title:'updated message',
+						obj:result
+				});
+			})
+		});
 });
 
 module.exports = router;

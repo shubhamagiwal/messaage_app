@@ -1,15 +1,16 @@
 <div class="list-group-heading">
 	<app-message-add></app-message-add>
 </div>
-<ul class="list-group">
+<ul class="list-group" *ngIf="messages!=null">
 	<li class="list-group-item" *ngFor="let message of messages">
 		<article class="panel panel-default">
 		{{message.message}}
 			<footer class="panel-footer">
-				<div class="author">-{{message.author}}</div>
-				<div class="config">
-					<a href="#">Edit</a>
-					<a href="#">Delete</a>
+				<div class="author">-{{message.author}}
+				<div class="config pull-right">
+					<a (click)='onEdit(message)'>Edit</a>
+					<a (click)="ondelete(message.id)">Delete</a>
+				</div>
 				</div>
 			</footer>
 		</article>

@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var messageRoutes = require('./routes/message');
 var appRoutes = require('./routes/app');
 var passport = require('passport');
 var app = express();
@@ -32,12 +33,13 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PATCH, DELETE, OPTIONS');
     next();
 });
+app.use(messageRoutes);
 
-app.use('/', appRoutes);
+app.use(appRoutes);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-    return res.render('index');
+    return res.render('error');
 });
 
 

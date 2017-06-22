@@ -10,6 +10,10 @@ export class MessageAddComponent{
 	constructor(private messageService:MessageService){}
 	onAddMessage(){
 		const message=this.message.nativeElement.value
-		this.messageService.addMessage(new Message(message));
+		this.messageService.addMessage(new Message(message))
+			.subscribe(
+				data=>console.log(data),
+				error=>console.log(error)
+			);
 	}
 }

@@ -10,7 +10,8 @@ export class MessageComponent{
 	messages:Message[]=[];
 	constructor(private messageService:MessageService){}
 	ngOnInit(){
-		this.messages=this.messageService.getMessage();
+		this.messages=this.messageService.getMessage()
+			.subscribe((messages:Message[])=>this.messages=message);
 		//need to subsrcribe to eventEmiiter here later
 		this.messageService.messageChanged.subscribe((messages:Message[])=>this.messages=messages);
 	}

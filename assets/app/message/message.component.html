@@ -1,0 +1,17 @@
+<div class="list-group-heading">
+	<app-message-add></app-message-add>
+</div>
+<ul class="list-group">
+	<li class="list-group-item" *ngFor="let message of messages">
+		<article class="panel panel-default">
+		{{message.message}}
+			<footer class="panel-footer">
+				<div class="author">-{{message.author}}</div>
+				<div class="config">
+					<a href="#">Edit</a>
+					<a href="#">Delete</a>
+				</div>
+			</footer>
+		</article>
+	</li>
+</ul>

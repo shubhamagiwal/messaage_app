@@ -1,6 +1,7 @@
 import {Component,OnInit} from '@angular/core';
 import {MessageService} from '../message.service';
 import {Message} from '../message.model';
+import { NgForm } from "@angular/forms";
 @Component({
 	selector:'app-message-add',
 	templateUrl:'./message-add.component.html'
@@ -15,7 +16,7 @@ export class MessageAddComponent{
 			}
 		);
 	}
-	onAddMessage(form:ngForm){
+	onAddMessage(form:NgForm){
 		if(this.message==null)
 		{
 			this.messageService.addMessage(new Message(form.value.content,'','',''))
@@ -28,15 +29,15 @@ export class MessageAddComponent{
 		else{
 			this.message.message=form.value.content;
 			this.messageService.OnUpdateMessage(this.message)
-				.subscribe({
-					data=>console.log(data);
-					error=>console.log('Some error occurred');
-				});
+				.subscribe(
+					data=>console.log(data),
+					error=>console.log('Some error occurred')
+				);
 			this.message=null;
 			form.resetForm();
 		}
 	}
-	onClear(form:ngForm)
+	onClear(form:NgForm)
 	{
 		if(this.message==null)
 		{

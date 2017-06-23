@@ -4,11 +4,13 @@ import {Http,Response,Headers} from '@angular/http';
 import 'rxjs/Rx';
 import {Observable} from 'rxjs';
 import { Router } from "@angular/router";
+import {ErrorService} from '../error/error.service';
+
 @Injectable()
 
 
 export class UserService{
-	constructor(private http:Http,private router:Router){}
+	constructor(private http:Http,private router:Router,private errorService:ErrorService){}
 	onSignUp(user:User){
 		const body=JSON.stringify({
 			first:user.first,
@@ -20,11 +22,10 @@ export class UserService{
 		return this.http.post('http://localhost:8000/signup',body,{headers:headers})
 			.map((response:Response)=>
 			{
-				console.log(response);
 				response.json()})
 			.catch((error:Response)=>{
-				console.log(error);
-				Observable.throw(error.json()}));
+				this.errorService.handleError(error.json());
+				return Observable.throw(error.json());});
 	}
 	onLogin(body:{email:string,password:string})
 	{
@@ -38,8 +39,8 @@ export class UserService{
 				this.router.navigate(["/"]);
 			})
 			.catch((error:Response)=>{
-				console.log(error);
-				Observable.throw(error.json())
+				this.errorService.handleError(error.json());
+				return Observable.throw(error.json());
 			});
 	}
 	logout(){

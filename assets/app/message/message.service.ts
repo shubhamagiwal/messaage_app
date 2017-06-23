@@ -3,6 +3,7 @@ import {OnInit,EventEmitter,Injectable} from '@angular/core';
 import {Http,Response,Headers} from '@angular/http';
 import 'rxjs/Rx';
 import {Observable} from 'rxjs';
+import {ErrorService} from '../error/error.service';
 @Injectable()
 
 export class MessageService{
@@ -10,7 +11,7 @@ export class MessageService{
 	private message:Message[]=[];
 	messageChanged=new EventEmitter<Message[]>();
 	editMessage = new EventEmitter<Message>();
-	constructor(private http:Http){}
+	constructor(private http:Http,private errorService:ErrorService){}
 	ngOnInit(){
 	}
 	getMessage(){
@@ -24,7 +25,11 @@ export class MessageService{
 				}
 				this.message=transformedMessages;
 				return transformedMessages;
-			}).catch((error:Response)=>Observable.throw(error);
+			})
+			.catch((error:Response)=>{
+				this.errorService.handleError(error.json());
+				return Observable.throw(error.json());
+			});
 	}
 	addMessage(message:Message){
 		const body=JSON.stringify(message);
@@ -37,7 +42,10 @@ export class MessageService{
 				message.userId=localStorage.getItem('userId');
 				this.message.push(message);
 				response.json()})
-			.catch((error:Response)=>Observable.throw(error));//this is observable
+			.catch((error:Response)=>{
+				this.errorService.handleError(error.json());
+				return Observable.throw(error.json());
+			});//this is observable
 
 	}
 	deleteMessage(id:string){
@@ -48,8 +56,9 @@ export class MessageService{
 				this.message.splice(this.message.findIndex(x=>x.id==id),1);
 				response.json()})
 			.catch((error:Response)=>{
-				console.log(error);
-				Observable.throw(error)});
+				this.errorService.handleError(error.json());
+				return Observable.throw(error.json());
+			});
 	}
 	OneditMessage(message:Message){
 		this.editMessage.emit(message);
@@ -62,10 +71,10 @@ export class MessageService{
 		const token = localStorage.getItem('token')? '?token='+localStorage.getItem('token'):'';
 		return this.http.patch('http://localhost:8000/updateMessage/'+message.id+token,body,{headers:headers})
 			.map((response:Response)=>{
-				console.log(response);
 				response.json()})
 			.catch((error:Response)=>{
-				console.log(error);
-				Observable.throw(error)});
+				this.errorService.handleError(error.json());
+				return Observable.throw(error.json());
+			});
 	}
 } 

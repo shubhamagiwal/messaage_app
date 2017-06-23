@@ -10,15 +10,17 @@ import { LoginComponent } from './user/login-component/login.component';
 import { SignUpComponent } from './user/sign-up-component/signup.component';
 import {LogoutComponent} from './user/logout.component';
 import { UserComponent } from './user/user.component';
+import {ErrorComponent} from './error/error.component';
 import { Routes,RouterModule } from '@angular/router';
 import {AUTH_ROUTES} from './user/user.routes';
-const appRoutes:Routes[]=[
+const appRoutes:Routes=[
 	{   path: '', redirectTo: '/messages', pathMatch: 'full' },
     { path: 'messages', component: MessageComponent },
     { path: 'user', component:UserComponent , children: AUTH_ROUTES }
 ];
 @NgModule({
     declarations: [
+        ErrorComponent,
     	LogoutComponent,
     	UserComponent,
     	SignUpComponent,

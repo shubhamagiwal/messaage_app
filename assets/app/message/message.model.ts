@@ -1,7 +1,7 @@
 export class Message{
 	message:string;
 	author:string;
-	userId:string,
+	userId:string;
 	id:string;
 	constructor(message:string,id:string,userId:string,first:string){
 		this.message=message;

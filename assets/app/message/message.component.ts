@@ -3,7 +3,7 @@ import {Message} from './message.model';
 import {MessageService} from './message.service';
 
 @Component({
-	selector:'app-message';
+	selector:'app-message',
 	templateUrl:'./message.component.html'
 })
 export class MessageComponent{
@@ -18,11 +18,10 @@ export class MessageComponent{
 	}
 	ondelete(id:string){
 		this.messageService.deleteMessage(id)
-			.subscribe({
-				result=>{
-					console.log(result);
-				}
-			});
+			.subscribe(
+				result=>
+					console.log(result)
+			);
 	}
 	onEdit(message:Message)
 	{

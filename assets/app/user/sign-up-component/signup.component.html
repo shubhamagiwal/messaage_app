@@ -2,33 +2,28 @@
 	<h1>Sign Up</h1>
 	<div class="panel panel-default">
 		<form (ngSubmit)="onSignUp(f)" #f="ngForm">
-			<div class="alert">Hi</div>
 			<div class="panel-body">
 				<div class="row">
 					<div class="col-xs-3">
 						<label for="Name">First Name</label>
-						<input class="form-control" type="text" name="firstname" [ngModel]="first" required>
+						<input class="form-control" type="text" name="firstname"  required>
 					</div>
 					<div class="col-xs-3">
 						<label for="Name">Last Name</label>
-						<input class="form-control" type="text" name="lastname" [ngModel]="last" required>
+						<input class="form-control" type="text" name="lastname" required>
 					</div>
 					<div class="col-xs-6">
 						<label for="email">Email</label>
-						<input class="form-control" type="text" name="email" [ngModel]="email" required>	
+						<input class="form-control" type="text" name="email" required>	
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-xs-3">
 						<label for="Name">Password</label>
-						<input type="password" class="form-control" name="password" [ngModel]="password">
-					</div>
-					<div class="col-xs-3">
-					    <label for="Name">Confirm Password</label>
-						<input type="password" class="form-control" name="cpassword" [ngModel]="cpassword">
+						<input type="password" class="form-control" name="password" required >
 					</div>
 				</div>
-				<button type="submit" class="btn btn-primary">Sign-Up</button>
+					<button type="submit" class="btn btn-primary">Sign-Up</button>
 			</div>
 		</form>
 	</div>

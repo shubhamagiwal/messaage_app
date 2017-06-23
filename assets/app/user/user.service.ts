@@ -32,6 +32,7 @@ export class UserService{
 		return this.http.post('http://localhost:8000/login',body,{headers:headers})
 			.map((response:Response)=>{
 				localStorage.setItem('token',response.json().token);
+				localStorage.setItem('userId',response.json().userId);
 				response.json();
 				this.router.navigate(["/"]);
 			})

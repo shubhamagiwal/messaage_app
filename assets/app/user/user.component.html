@@ -1,9 +1,14 @@
-<div class="config">
-<a routerLink="login">Login</a>
-<a routerLink="signup">Sign Up</a>
-</div>
 <div class="row">
-	<div class="col-xs-12">
-		<router-outlet></router-outlet>
-	</div>
+        <header class="row spacing">
+            <nav class="col-md-8 col-md-offset-2">
+                <ul class="nav nav-tabs">
+                    <li routerLinkActive="active" *ngIf="!onLoggedIn()"><a [routerLink]="['signup']">Signup</a></li>
+                    <li routerLinkActive="active" *ngIf="!onLoggedIn()"><a [routerLink]="['login']">Signin</a></li>
+                    <li routerLinkActive="active" *ngIf="onLoggedIn()"><a [routerLink]="['logout']">Logout</a></li>
+                </ul>
+            </nav>
+        </header>
+        <div class="row spacing">
+			<router-outlet></router-outlet>
+		</div>
 </div>

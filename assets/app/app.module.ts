@@ -8,6 +8,7 @@ import { MessageComponent } from './message/message.component';
 import { MessageAddComponent } from './message/message-add/message-add.component';
 import { LoginComponent } from './user/login-component/login.component';
 import { SignUpComponent } from './user/sign-up-component/signup.component';
+import {LogoutComponent} from './user/logout.component';
 import { UserComponent } from './user/user.component';
 import { Routes,RouterModule } from '@angular/router';
 import {AUTH_ROUTES} from './user/user.routes';
@@ -18,6 +19,7 @@ const appRoutes:Routes[]=[
 ];
 @NgModule({
     declarations: [
+    	LogoutComponent,
     	UserComponent,
     	SignUpComponent,
     	LoginComponent,

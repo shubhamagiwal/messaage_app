@@ -35,7 +35,7 @@ router.post('/signup',function(req,res,next)
 	});
 });
 
-router.post('/signin',function(req,res,next){
+router.post('/login',function(req,res,next){
 	User.findOne({email:req.body.email},function(err,user){
 			if(err)
 			{
@@ -64,7 +64,7 @@ router.post('/signin',function(req,res,next){
 				}
 			});
 			var token= jwt.sign({user:user},'testsecret',{expiresIn:7200});
-			res.send(200).json({
+			res.status(200).json({
 				message:'successfully signed in',
 				token:token,
 				userId:user._id

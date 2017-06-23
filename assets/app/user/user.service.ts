@@ -19,7 +19,7 @@ export class UserService{
 			password:user.password
 		});
 		const headers= new Headers({'Content-Type':'application/json'});
-		return this.http.post('http://localhost:8000/signup',body,{headers:headers})
+		return this.http.post('https://messageboard16.herokuapp.com/signup',body,{headers:headers})
 			.map((response:Response)=>
 			{
 				response.json()})
@@ -30,7 +30,7 @@ export class UserService{
 	onLogin(body:{email:string,password:string})
 	{
 		const headers= new Headers({'Content-Type':'application/json'});
-		return this.http.post('http://localhost:8000/login',body,{headers:headers})
+		return this.http.post('https://messageboard16.herokuapp.com/login',body,{headers:headers})
 			.map((response:Response)=>{
 				localStorage.setItem('token',response.json().token);
 				localStorage.setItem('userId',response.json().userId);

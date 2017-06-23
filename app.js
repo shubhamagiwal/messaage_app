@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var messageRoutes = require('./routes/message');
 var appRoutes = require('./routes/app');
+var userRoutes = require('./routes/user');
 var passport = require('passport');
 var app = express();
 require('dotenv').load();
@@ -37,6 +38,7 @@ app.use(messageRoutes);
 
 app.use(appRoutes);
 
+app.use(userRoutes);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     return res.render('index');

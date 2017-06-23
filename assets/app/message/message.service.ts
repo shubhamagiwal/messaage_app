@@ -35,7 +35,7 @@ export class MessageService{
 		this.messageChanged.emit(this.message.slice());
 		return this.http.post('http://localhost:8000/message',body,{headers:headers})
 			.map((response:Response)=>response.json())
-			.catch((error:Response)=>Observable.throw(error);//this is observable
+			.catch((error:Response)=>Observable.throw(error));//this is observable
 
 	}
 	deleteMessage(id:string){

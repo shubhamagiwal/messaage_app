@@ -1,12 +1,13 @@
-class export User {
+export class User {
 	first:string;
 	last:string;
 	email:string;
 	password:string
-	constructor(first:string,last:string,email:string)
+	constructor(first:string,last:string,email:string,password:string)
 	{
 		this.first=first;
 		this.last=last;
 		this.email=email;
+		this.password=password;
 	}
 }

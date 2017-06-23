@@ -5,11 +5,22 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from "./app.component";
 import { HeaderComponent } from './header/header.component';
 import { MessageComponent } from './message/message.component'; 
-import {MessageAddComponent} from './message/message-add/message-add.component';
-
-//import {LoginComponent} from './user/login-component/login.component';
+import { MessageAddComponent } from './message/message-add/message-add.component';
+import { LoginComponent } from './user/login-component/login.component';
+import { SignUpComponent } from './user/sign-up-component/signup.component';
+import { UserComponent } from './user/user.component';
+import { Routes,RouterModule } from '@angular/router';
+import {AUTH_ROUTES} from './user/user.routes';
+const appRoutes:Routes[]=[
+	{   path: '', redirectTo: '/messages', pathMatch: 'full' },
+    { path: 'messages', component: MessageComponent },
+    { path: 'user', component:UserComponent , children: AUTH_ROUTES }
+];
 @NgModule({
     declarations: [
+    	UserComponent,
+    	SignUpComponent,
+    	LoginComponent,
     	MessageAddComponent,
     	MessageComponent,
     	HeaderComponent,
@@ -18,7 +29,8 @@ import {MessageAddComponent} from './message/message-add/message-add.component';
     imports: [
     FormsModule,
     BrowserModule,
-    HttpModule],
+    HttpModule,
+    RouterModule.forRoot(appRoutes)],
     bootstrap: [AppComponent],
 })
 export class AppModule {

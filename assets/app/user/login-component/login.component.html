@@ -1,17 +1,19 @@
 <div class="panel panel-default">
-	<div class="panel-body">
-		<div class="row">
-			<div class="col-xs-12">
-				<input class="form-control" type="text" [(ngModel)]="name">
+	<form>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-xs-4">
+					<label for="email">Email</label>
+					<input class="form-control" type="text" [(ngModel)]="email" required>	
+				</div>
 			</div>
+			<div class="row">
+				<div class="col-xs-3">
+					<label for="Name">Password</label>
+					<input type="password" class="form-control" [(ngModel)]="password">
+				</div>
+			</div>
+			<button type="button" class="btn btn-primary">Login</button>
 		</div>
-		<div class="row">
-			<div class="col-xs-6">
-				<input type="password" class="form-control" [(ngModel)]="password">
-			</div>
-			<div class="col-xs-6">
-				<input type="password" class="form-control" [(ngModel)]="cpassword">
-			</div>
-		</div>
-	</div>
+	</form>
 </div>

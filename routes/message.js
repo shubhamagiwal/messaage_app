@@ -5,7 +5,7 @@ var jwt = require('jsonwebtoken');
 var User = require('../models/user');
 
 router.get('/message',function(req,res,next){
-	Message.find().exec(function(err,result){
+	Message.find().populate('User','first').exec(function(err,result){
 		if(err){
 			return res.status(500).json({
 				title:'error',
@@ -26,7 +26,7 @@ function isLoggedIn (req, res, next) {
 			return res.status(401).json({
 				title:'Not Authorized',
 				error:err
-			})
+			});
 		}
 		next();
 	})
@@ -48,11 +48,10 @@ router.delete('/messageDelete/:id',isLoggedIn,function(req,res,next){
 				error:{message:'No message found'}
 			});
 		}
-		if(message.user!==decode.user)
-		{
+		if(message.User != decode.user._id){
 			return res.status(401).json({
 				title:'Not Authorized',
-				error:{message:'Not a valid user'}
+				error:{message:'You cant edit this message'}
 			});
 		}
 		message.remove(function(err,result){
@@ -60,8 +59,7 @@ router.delete('/messageDelete/:id',isLoggedIn,function(req,res,next){
 				{
 					return res.status(500).json({
 					title:'error',
-					error:err
-					});
+					error:err});
 				}
 				res.status(200).json({
 						title:'updated message',
@@ -100,6 +98,7 @@ router.post('/message',isLoggedIn,function(req,res,next){
 				});
 			}
 			user.messages.push(result);
+			user.save();
 			res.status(200).json({
 				message:"saved message",
 				obj:result
@@ -124,10 +123,10 @@ router.patch('/updateMessage/:id',isLoggedIn,function(req,res,next){
 				error:{message:'No message found'}
 			});
 		}
-		if(message.user!==decode.user){
+		if(message.User != decode.user._id){
 			return res.status(401).json({
 				title:'Not Authorized',
-				error:{message:'Not a valid user'}
+				error:{message:'You cant edit this message'}
 			});
 		}
 		message.message=req.body.message;

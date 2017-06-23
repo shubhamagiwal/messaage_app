@@ -20,11 +20,9 @@ export class MessageService{
 				const messages=response.json().obj;
 				let transformedMessages:Message[]=[];
 				for(let message of messages){
-					transformedMessages.push(new Message(message.message,message._id));
+					transformedMessages.push(new Message(message.message,message._id,message.User._id,message.User.first));
 				}
 				this.message=transformedMessages;
-				//console.log(response.json().obj);
-				//this.messageChanged.emit(this.message.slice());
 				return transformedMessages;
 			}).catch((error:Response)=>Observable.throw(error);
 	}
@@ -34,6 +32,9 @@ export class MessageService{
 		const token = localStorage.getItem('token')? '?token='+localStorage.getItem('token'):'';
 		return this.http.post('http://localhost:8000/message'+token,body,{headers:headers})
 			.map((response:Response)=>{
+				message.id=response.json().obj._id;
+				message.author=localStorage.getItem('first');
+				message.userId=localStorage.getItem('userId');
 				this.message.push(message);
 				response.json()})
 			.catch((error:Response)=>Observable.throw(error));//this is observable
@@ -46,7 +47,9 @@ export class MessageService{
 			.map((response:Response)=>{
 				this.message.splice(this.message.findIndex(x=>x.id==id),1);
 				response.json()})
-			.catch((error:Response)=>Observable.throw(error));
+			.catch((error:Response)=>{
+				console.log(error);
+				Observable.throw(error)});
 	}
 	OneditMessage(message:Message){
 		this.editMessage.emit(message);
@@ -61,6 +64,8 @@ export class MessageService{
 			.map((response:Response)=>{
 				console.log(response);
 				response.json()})
-			.catch((error:Response)=>Observable.throw(error));
+			.catch((error:Response)=>{
+				console.log(error);
+				Observable.throw(error)});
 	}
 } 

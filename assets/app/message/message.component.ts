@@ -10,11 +10,10 @@ export class MessageComponent{
 	messages:Message[]=[];
 	constructor(private messageService:MessageService){}
 	ngOnInit(){
-		this.messages=this.messageService.getMessage()
+		this.messageService.getMessage()
 			.subscribe((messages:Message[])=>{
 				this.messages=messages;
 			});
-		//need to subsrcribe to eventEmiiter here later
 		this.messageService.messageChanged.subscribe((messages:Message[])=>this.messages=messages);
 	}
 	ondelete(id:string){
@@ -28,5 +27,9 @@ export class MessageComponent{
 	onEdit(message:Message)
 	{
 		this.messageService.OneditMessage(message);
+	}
+	belongstoUser(message:Message)
+	{
+		return message.userId===localStorage.getItem('userId');
 	}
 }

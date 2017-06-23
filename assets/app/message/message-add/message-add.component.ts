@@ -18,7 +18,7 @@ export class MessageAddComponent{
 	onAddMessage(form:ngForm){
 		if(this.message==null)
 		{
-			this.messageService.addMessage(new Message(form.value.content,""))
+			this.messageService.addMessage(new Message(form.value.content,'','',''))
 				.subscribe(
 					data=>console.log(data),
 					error=>console.log(error)
@@ -30,8 +30,10 @@ export class MessageAddComponent{
 			this.messageService.OnUpdateMessage(this.message)
 				.subscribe({
 					data=>console.log(data);
-					error=>console.log(error);
+					error=>console.log('Some error occurred');
 				});
+			this.message=null;
+			form.resetForm();
 		}
 	}
 	onClear(form:ngForm)

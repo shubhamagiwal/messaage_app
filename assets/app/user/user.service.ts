@@ -33,6 +33,7 @@ export class UserService{
 			.map((response:Response)=>{
 				localStorage.setItem('token',response.json().token);
 				localStorage.setItem('userId',response.json().userId);
+				localStorage.setItem('first',response.json().first);
 				response.json();
 				this.router.navigate(["/"]);
 			})

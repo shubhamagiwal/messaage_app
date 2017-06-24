@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
 		this.userService.onLogin(body)
 			.subscribe(
 				data=>console.log(data),
-				error=>console.log('Some error occurred')
+				error=>console.log(error)
 			);
 	}	
 }

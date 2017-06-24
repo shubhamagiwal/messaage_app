@@ -18,11 +18,12 @@ export class SignUpComponent{
 		}
 	}
 	onSignUp(form:NgForm){
+		console.log(form);
 		this.user=new User(form.value.firstname,form.value.lastname,form.value.email,form.value.password);
 		this.userService.onSignUp(this.user)
 			.subscribe(
 				data=>console.log(data),
-				error=>console.log('hihih')
+				error=>console.log(error)
 			);
 		form.resetForm();
 

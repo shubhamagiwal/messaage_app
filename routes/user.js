@@ -65,7 +65,7 @@ router.post('/login',function(req,res,next){
 			});
 			if(!check)
 			{
-				res.status(500).json({
+				return res.status(500).json({
 					title:'error',
 					error:{message:'Wrong Password'}
 				});

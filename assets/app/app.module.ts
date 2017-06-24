@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule ,ReactiveFormsModule} from '@angular/forms';
 import { AppComponent } from "./app.component";
 import { HeaderComponent } from './header/header.component';
 import { MessageComponent } from './message/message.component'; 
@@ -32,6 +32,7 @@ const appRoutes:Routes=[
     ],
     imports: [
     FormsModule,
+    ReactiveFormsModule,
     BrowserModule,
     HttpModule,
     RouterModule.forRoot(appRoutes)],

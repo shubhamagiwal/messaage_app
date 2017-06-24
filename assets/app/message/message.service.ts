@@ -16,7 +16,7 @@ export class MessageService{
 	}
 	getMessage(){
 		const headers= new Headers({'Content-Type':'application/json'});
-		return this.http.get('https://messageboard16.herokuapp.com/message',{headers:headers})
+		return this.http.get('http://localhost:8000/message',{headers:headers})
 			.map((response:Response)=>{
 				const messages=response.json().obj;
 				let transformedMessages:Message[]=[];
@@ -35,7 +35,7 @@ export class MessageService{
 		const body=JSON.stringify(message);
 		const headers= new Headers({'Content-Type':'application/json'});
 		const token = localStorage.getItem('token')? '?token='+localStorage.getItem('token'):'';
-		return this.http.post('https://messageboard16.herokuapp.com/message'+token,body,{headers:headers})
+		return this.http.post('http://localhost:8000/message'+token,body,{headers:headers})
 			.map((response:Response)=>{
 				message.id=response.json().obj._id;
 				message.author=localStorage.getItem('first');
@@ -51,7 +51,7 @@ export class MessageService{
 	deleteMessage(id:string){
 		const headers=new Headers({'Content-Type':'application/json'});
 		const token = localStorage.getItem('token')? '?token='+localStorage.getItem('token'):'';
-		return this.http.delete('https://messageboard16.herokuapp.com/messageDelete/'+id+token,{headers:headers})
+		return this.http.delete('http://localhost:8000/messageDelete/'+id+token,{headers:headers})
 			.map((response:Response)=>{
 				this.message.splice(this.message.findIndex(x=>x.id==id),1);
 				response.json()})
@@ -69,7 +69,7 @@ export class MessageService{
 		const body = JSON.stringify(message);
 		const headers=new Headers({'Content-Type':'application/json'});
 		const token = localStorage.getItem('token')? '?token='+localStorage.getItem('token'):'';
-		return this.http.patch('https://messageboard16.herokuapp.com/updateMessage/'+message.id+token,body,{headers:headers})
+		return this.http.patch('http://localhost:8000/updateMessage/'+message.id+token,body,{headers:headers})
 			.map((response:Response)=>{
 				response.json()})
 			.catch((error:Response)=>{

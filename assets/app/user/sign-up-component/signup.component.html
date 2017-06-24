@@ -1,29 +1,29 @@
 <div class="col-xs-12 col-md-8 col-md-offset-2">
 	<h1>Sign Up</h1>
 	<div class="panel panel-default">
-		<form (ngSubmit)="onSignUp(f)" #f="ngForm">
+		<form [formGroup]="myform" (ngSubmit)="onSignUp()">
 			<div class="panel-body">
 				<div class="row">
-					<div class="col-xs-3">
-						<label for="Name">First Name</label>
-						<input class="form-control" type="text" name="firstname"  ngModel #firstname="ngModel" required>
+					<div class="col-xs-3 form-group">
+						<label for="firstname">First Name</label>
+						<input class="form-control" id="firstname" type="text" name="firstname" formControlName="firstname">
 					</div>
-					<div class="col-xs-3">
-						<label for="Name">Last Name</label>
-						<input class="form-control" type="text" name="lastname" ngModel #lastname="ngModel" required>
+					<div class="col-xs-3 form-group">
+						<label for="lastname">Last Name</label>
+						<input class="form-control" id="lastname" type="text" name="lastname" formControlName="lastname">
 					</div>
-					<div class="col-xs-6">
+					<div class="col-xs-6 form-group">
 						<label for="email">Email</label>
-						<input class="form-control" type="text" name="email" ngModel #email="ngModel" required>	
+						<input class="form-control" id="email" type="email" name="email" formControlName="email">	
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-xs-3">
-						<label for="Name">Password</label>
-						<input type="password" class="form-control" name="password" ngModel #password="ngModel" required >
+					<div class="col-xs-3 form-group">
+						<label for="password">Password</label>
+						<input type="password" class="form-control" name="password" formControlName="password">
 					</div>
 				</div>
-					<button type="submit" class="btn btn-primary">Sign-Up</button>
+					<button type="submit" class="btn btn-primary" [disabled]="!myform.valid">Sign-Up</button>
 			</div>
 		</form>
 	</div>

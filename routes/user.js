@@ -53,7 +53,7 @@ router.post('/login',function(req,res,next){
 					}
 				});
 			}
-			user.validatePassword(req.body.password,function(err){
+			var check=user.validatePassword(req.body.password,function(err){
 				if(err)
 				{
 					return res.status(500).json(
@@ -63,7 +63,13 @@ router.post('/login',function(req,res,next){
 					}});
 				}
 			});
-			console.log(process.env.SECRET);
+			if(!check)
+			{
+				res.status(500).json({
+					title:'error',
+					error:{message:'Wrong Password'}
+				});
+			}
 			var token= jwt.sign({user:user},process.env.SECRET,{expiresIn:7200});
 			res.status(200).json({
 				message:'successfully signed in',

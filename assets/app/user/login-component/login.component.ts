@@ -2,6 +2,7 @@ import { Component , OnInit } from '@angular/core';
 import {UserService} from '../user.service';
 import {Router} from '@angular/router';
 import { NgForm } from "@angular/forms";
+import {Router} from '@angular/router';
 @Component({
 	selector:'app-login',
 	templateUrl:'./login.component.html'
@@ -21,7 +22,10 @@ export class LoginComponent implements OnInit {
 		};
 		this.userService.onLogin(body)
 			.subscribe(
-				data=>console.log(data),
+				data=>{
+					this.route.navigate(['/']);
+					console.log(data);
+				},
 				error=>console.log(error)
 			);
 	}	

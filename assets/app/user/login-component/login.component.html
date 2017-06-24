@@ -5,13 +5,13 @@
 			<div class="row">
 				<div class="col-xs-8 col-xs-offset-2">
 					<label for="email">Email</label>
-					<input class="form-control" type="text" name="email"  required>	
+					<input class="form-control" type="text" name="email"  ngModel #email="ngModel" required>	
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-xs-8 col-xs-offset-2"><br>
 					<label for="Name">Password</label>
-					<input type="password" class="form-control" name="password">
+					<input type="password" class="form-control" name="password" ngModel #password="ngModel" required>
 				</div>
 			</div>
 			<div class="row">
